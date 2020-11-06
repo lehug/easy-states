@@ -50,6 +50,12 @@ final class FiniteStateMachineImpl implements FiniteStateMachine {
         finalStates = new HashSet<>();
     }
 
+    @Override
+    public final synchronized State fire(State currentState, final Event event) throws FiniteStateMachineException {
+        setCurrentState(currentState);
+        return fire(event);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -101,6 +107,11 @@ final class FiniteStateMachineImpl implements FiniteStateMachine {
 
     void registerFinalState(final State finalState) {
         finalStates.add(finalState);
+    }
+
+    @Override
+    public void setCurrentState(State currentState) {
+        this.currentState = currentState;
     }
 
     /**

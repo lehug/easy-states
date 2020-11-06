@@ -33,6 +33,13 @@ import java.util.Set;
 public interface FiniteStateMachine {
 
     /**
+     * Set current FSM state.
+     * @param currentState
+     */
+    default void setCurrentState(State currentState) {
+    }
+
+    /**
      * Return current FSM state.
      * @return current FSM state
      */
@@ -73,6 +80,15 @@ public interface FiniteStateMachine {
      * @return the last transition made
      */
     Transition getLastTransition();
+
+    /**
+     * Fire an event. According to event type, the FSM will make the right transition.
+     * @param currentState the currentState for FSM
+     * @param event to fire
+     * @return The next FSM state defined by the transition to make
+     * @throws FiniteStateMachineException thrown if an exception occurs during event handling
+     */
+    State fire(State currentState, Event event) throws FiniteStateMachineException;
 
     /**
      * Fire an event. According to event type, the FSM will make the right transition.
